@@ -1,0 +1,139 @@
+A1) select cid,rdate,sales from retailstore order by sales desc limit 1;
+01622362  	2001-02-17 00:00:00	444000
+
+for jan
+select cid,rdate,sales from retailstore where month(rdate)=1 order by sales desc limit 1;
+01062489  	2001-01-03 00:00:00	45554
+
+for feb
+select cid,rdate,sales from retailstore where month(rdate)=2 order by sales desc limit 1;
+01622362  	2001-02-17 00:00:00	444000
+
+for nov
+select cid,rdate,sales from retailstore where month(rdate)=11 order by sales desc limit 1;
+02119083  	2000-11-28 00:00:00	62688
+
+for dec
+select cid,rdate,sales from retailstore where month(rdate)=12 order by sales desc limit 1;
+02134819  	2000-12-27 00:00:00	70589
+-------------------------------------------------------------------------------------------------------
+A2)select pid,sum(sales-cost) as profit from retailstore group by pid order by profit desc;
+4909978112950	71312
+8712045008539	46586
+20564100     	38699
+4710628131012	34429
+0729238191921	33645
+
+select category,sum(sales-cost) as profit from retailstore group by category order by profit desc;
+320402	356563
+560402	340999
+560201	320217
+100205	201537
+530101	184621
+-------------------------------------------------------------------------------------------------------
+A3)select pid,round((sum(sales)-sum(cost))/sum(cost)*100,2) as margin from retailstore group by pid order by margin desc limit 5;
+20562687     	3733.33
+4714298810208	279.33
+4714298808236	197.73
+4711821100584	160.91
+20454388     	142.5
+
+select category,round((sum(sales)-sum(cost))/sum(cost)*100,2) as margin from retailstore group by category order by margin desc limit 5;
+760112	116.62
+590106	94.78
+751207	93.2
+590105	87.66
+520423	84.43
+-------------------------------------------------------------------------------------------------------
+B)select pid,sum(sales) as totsales from retailstore group by pid order by totsales desc limit 10;
+8712045008539	1540503
+4710628131012	675112
+4710114128038	514601
+4711588210441	491292
+20553418     	470501
+4710628119010	433380
+4909978112950	432596
+8712045000151	428530
+7610053910787	392581
+4719090900065	385626
+
+for jan
+select pid,sum(sales) as totsales from retailstore where month(rdate)=1 group by pid order by totsales desc limit 10;
+8712045008539	611874
+4710628119010	278230
+4710628131012	227840
+4719090900065	225456
+4710174053691	180273
+0300086780026	179569
+4909978112950	178544
+4712425010712	138601
+4710265849066	132550
+4710043552102	118297
+
+for feb
+select pid,sum(sales) as totsales from retailstore where month(rdate)=2 group by pid order by totsales desc limit 10;
+4711588210441	444000
+0022972004664	213803
+4710036003581	210339
+4710265849066	194669
+4710114128038	147813
+4710114362029	130475
+4719864060056	124580
+4710036008562	122794
+4712162000038	122762
+4710114105046	116787
+
+for nov
+select pid,sum(sales) as totsales from retailstore where month(rdate)=11 group by pid order by totsales desc limit 10;
+20553418     	470501
+8712045008539	460282
+4902430493437	271542
+4710628131012	188149
+4710114128038	187895
+4719090900058	178385
+4710291112172	153023
+4710908131589	150204
+4902430040334	125583
+4909978112950	117920
+
+for dec
+select pid,sum(sales) as totsales from retailstore where month(rdate)=12 group by pid order by totsales desc limit 10;
+8712045008539	442482
+8712045000151	298013
+8712045011317	252688
+7610053910787	233383
+4710628131012	207681
+7610053910794	200086
+4710291112172	110881
+4902430493437	108414
+4710114128038	89971
+4719090900065	85935
+-------------------------------------------------------------------------------------------------------
+C1)select pid, age, sum(sales-cost) as profit from retailstore where sales>cost and age='A ' group by pid, age order by profit desc limit 5;
+4711588210441	A 	12025
+20559045     	A 	3290
+4973167032060	A 	2163
+4973167738757	A 	1854
+20556433     	A 	1776
+
+select category, age, sum(sales-cost) as profit from retailstore where sales>cost and age='A ' group by category, age order by profit desc limit 5;
+320402	A 	17237
+100516	A 	12915
+560201	A 	9121
+530101	A 	8980
+530110	A 	8285
+-------------------------------------------------------------------------------------------------------
+C2)select category, age, sum(cost-sales) as loss from retailstore where cost>sales and age='A ' group by category, age order by loss desc limit 5;
+130315	A 	7041
+110217	A 	5242
+110117	A 	2256
+110106	A 	2252
+500201	A 	2126
+
+select pid, age, sum(cost-sales) as loss from retailstore where cost>sales and age='A ' group by pid, age order by loss desc limit 5;
+4714981010038	A 	6953
+4711271000014	A 	2252
+4719090900065	A 	2006
+4710265849066	A 	1988
+4712425010712	A 	1236
+
