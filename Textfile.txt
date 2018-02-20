@@ -1,0 +1,6 @@
+pig hive pig
+hadoop pig MapReduce
+Hive Hadoop Pig
+Mapreduce hadoop hive
+pig hadoop hive
+Mapreduce mapreduce hive
